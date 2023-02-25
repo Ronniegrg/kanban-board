@@ -2,54 +2,46 @@ import { DndContext, rectIntersection } from "@dnd-kit/core";
 import { useState } from "react";
 import { Flex } from "@chakra-ui/react";
 import Task from "./Task";
-import KanbanLane from "./KanbanLane";
+import Lane from "./Lane";
 
-const KanbanBoard = () => {
+const Board = () => {
   const [todoItems, setTodoItems] = useState([]);
   const [doneItems, setDoneItems] = useState([]);
   const [inProgressItems, setInProgressItems] = useState([]);
-  const [uItems, setuItems] = useState([]);
   const arrayLanes = [
     {
-      title: "ToDo",
-      items: todoItems,
+      title: "Done",
+      items: doneItems,
       color: "red",
     },
     {
-      title: "InProgress",
+      title: "In Progress",
       items: inProgressItems,
       color: "yellow",
     },
     {
-      title: "Done",
-      items: doneItems,
+      title: "ToDo",
+      items: todoItems,
       color: "green",
-    },
-    {
-      title: "Unassigned",
-      items: uItems,
-      color: "gray",
     },
   ];
 
   const addNewCard = (title) => {
-    setuItems([...uItems, { title }]);
+    setTodoItems([...todoItems, { title }]);
   };
   return (
     <DndContext
       collisionDetection={rectIntersection}
-      onDragEnd={(e) => {
-        const container = e.over?.id;
-        const title = e.active.data.current?.title || "";
-        const index = e.active.data.current?.index || 0;
-        const parent = e.active.data.current?.parent || "ToDo";
+      onDragEnd={(event) => {
+        const container = event.over?.id;
+        const title = event.active.data.current?.title || "";
+        const index = event.active.data.current?.index || 0;
+        const parent = event.active.data.current?.parent || "ToDo";
 
         if (container === "ToDo") {
           setTodoItems([...todoItems, { title }]);
         } else if (container === "Done") {
           setDoneItems([...doneItems, { title }]);
-        } else if (container === "Unassigned") {
-          setuItems([...uItems, { title }]);
         } else {
           setInProgressItems([...inProgressItems, { title }]);
         }
@@ -63,8 +55,6 @@ const KanbanBoard = () => {
             ...doneItems.slice(0, index),
             ...doneItems.slice(index + 1),
           ]);
-        } else if (parent === "Unassigned") {
-          setuItems([...uItems.slice(0, index), ...uItems.slice(index + 1)]);
         } else {
           setInProgressItems([
             ...inProgressItems.slice(0, index),
@@ -77,11 +67,11 @@ const KanbanBoard = () => {
         <Task addCard={addNewCard} />
         <Flex flex="3">
           {arrayLanes.map(({ title, items, color }, index) => (
-            <KanbanLane key={index} title={title} items={items} color={color} />
+            <Lane key={index} title={title} items={items} color={color} />
           ))}
         </Flex>
       </Flex>
     </DndContext>
   );
 };
-export default KanbanBoard;
+export default Board;

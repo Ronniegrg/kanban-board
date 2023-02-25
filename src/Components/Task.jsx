@@ -1,14 +1,14 @@
 import { Button, Flex, Input } from "@chakra-ui/react";
 import React, { useState } from "react";
 
-const AddCard = ({ addCard }) => {
+const Task = ({ addCard }) => {
   const [title, setTitle] = useState("");
 
   return (
     <Flex flex="3" padding="5">
       <Flex
         flex="1"
-        bg="Green"
+        bg="black"
         borderRadius="md"
         boxShadow="md"
         flexDirection="row"
@@ -16,16 +16,16 @@ const AddCard = ({ addCard }) => {
       >
         <Input
           mt={2}
-          placeholder="Add Task"
+          placeholder="Add a task"
           _placeholder={{ color: "white" }}
           color="white"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(event) => setTitle(event.target.value)}
         />
         <Button
           ml={1}
           mt={2}
-          colorScheme="blue"
+          colorScheme="messenger"
           onClick={() => {
             addCard(title);
             setTitle("");
@@ -38,4 +38,4 @@ const AddCard = ({ addCard }) => {
   );
 };
 
-export default AddCard;
+export default Task;

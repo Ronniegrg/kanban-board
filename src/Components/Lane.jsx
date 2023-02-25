@@ -2,7 +2,7 @@ import { useDroppable } from "@dnd-kit/core";
 import { Flex, Text } from "@chakra-ui/react";
 import Card from "./Card";
 
-const KanbanLane = ({ title, items, color }) => {
+const Lane = ({ title, items, color }) => {
   const { setNodeRef } = useDroppable({
     id: title,
   });
@@ -20,7 +20,8 @@ const KanbanLane = ({ title, items, color }) => {
         fontsize="x1"
         borderRadius="md"
         p={1}
-        fontweight="bold"
+        textAlign="center"
+        fontWeight="bold"
         bg={`${color}.500`}
         mb="2"
         color={"white"}
@@ -44,4 +45,4 @@ const KanbanLane = ({ title, items, color }) => {
   );
 };
 
-export default KanbanLane;
+export default Lane;

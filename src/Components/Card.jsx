@@ -3,7 +3,7 @@ import { useDraggable } from "@dnd-kit/core";
 import { Flex, Text } from "@chakra-ui/react";
 import { CSS } from "@dnd-kit/utilities";
 
-const KanbanCard = ({ title, index, parent }) => {
+const Card = ({ title, index, parent }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useDraggable({
       id: `card-${title}`,
@@ -39,4 +39,4 @@ const KanbanCard = ({ title, index, parent }) => {
   );
 };
 
-export default KanbanCard;
+export default Card;
